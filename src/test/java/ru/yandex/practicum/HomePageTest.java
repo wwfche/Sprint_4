@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.After;
@@ -23,8 +24,13 @@ public class HomePageTest {
     @Before
     public void startUp() {
 
+        //использую менеджер вебдрайвера, пока приходится комментить не используемый драйвер
+
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+
+//        WebDriverManager.firefoxdriver().setup();
+//        driver = new FirefoxDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
         driver.manage().window().maximize();
 
@@ -48,10 +54,11 @@ public class HomePageTest {
     public void testPriceText() throws InterruptedException {
         HomePage objHomePage = new HomePage(driver);
         objHomePage.waitForLoadHomePage();
-//        Thread.sleep(5000);
+        Thread.sleep(5000);
         objHomePage.clickHueta();
         objHomePage.clickPrice();
         String priceText = objHomePage.getPriceText();
+//        System.out.println(priceText);
         assertEquals("Текст1 не корректный", priceText, "Сутки — 400 рублей. Оплата курьеру — наличными или картой.");
 
 
