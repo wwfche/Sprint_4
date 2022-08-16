@@ -14,8 +14,11 @@ import org.openqa.selenium.JavascriptExecutor;
 
 public class HomePage {
     private WebDriver driver;
-    private By price = By.id("accordion__heading-0");
-    private By priceText = By.cssSelector(".accordion__item:nth-child(1) p");
+    //локаторы страницы главная
+    private By price = By.id("accordion__heading-0"); // локатор цены
+    private By priceText = By.cssSelector(".accordion__item:nth-child(1) p"); //локатор цены чтобы проверить текст
+
+// зачем делать комменты на все? есть же правило: если код требует комментария - значит код не самый лучший
     private By many = By.id("accordion__heading-1");
     private By manyText = By.cssSelector(".accordion__item:nth-child(2) p");
     private By time = By.id("accordion__heading-2");
@@ -31,19 +34,21 @@ public class HomePage {
     private By mkad = By.id("accordion__heading-7");
     private By mkadText = By.cssSelector(".accordion__item:nth-child(8) p");
 
-    public By hueta = By.cssSelector("#rcc-confirm-button");
+    public By cookie = By.cssSelector("#rcc-confirm-button");
+    public By buttonOrderHeader = By.cssSelector(".Header_Nav__AGCXC .Button_Button__ra12g");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
-
+//метод ожидания загрузки страницы
     public void waitForLoadHomePage() {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.className("Home_SubHeader__zwi_E")));
     }
 
+//метод по работе с куки, изначально прописал ее в Главную, после решил использовать в OrderPageTest в After
     public void clickHueta(){
-        driver.findElement(hueta).click();
+        driver.findElement(cookie).click();
     }
     public void clickPrice() {
 
@@ -96,5 +101,9 @@ public class HomePage {
     }
     public String getMkadText(){
         return driver.findElement(mkadText).getText();
+    }
+
+    public void clickButtonOrderHeader() {
+        driver.findElement(buttonOrderHeader).click();
     }
 }
